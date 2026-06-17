@@ -168,7 +168,6 @@ function hookiOS() {
                             var fakeStr = ObjC.classes.NSString.stringWithString_("CN=Google Trust Services");
                             retval.replace(fakeStr);
                         }
-                   
                     }
                 }
             });
@@ -245,7 +244,7 @@ function hookAndroid() {
                 return Java.array('java.net.Proxy', [Proxy.$new(ProxyType.NO_PROXY.value, null)]);
             };
             console.log("[+] Bypassed Android ProxySelector checks");
-\n        } catch(e) {}
+        } catch(e) {}
 
         // 5. BYPASS CUSTOM CERTIFICATE DETECTION (Android)
         // Apps often iterate KeyStore aliases looking for "charles", "fiddler", "burp", "mitm"
@@ -292,16 +291,16 @@ function hookAndroid() {
             };
         } catch(e) {}
 
-	// Hook HostnameVerifier
-	try {
-	    var HostnameVerifier = Java.use('javax.net.ssl.HostnameVerifier');
-	    // Hook the default implementation or common custom ones
-	    var OkHostnameVerifier = Java.use('okhttp3.internal.tls.OkHostnameVerifier');
-	    OkHostnameVerifier.verify.overload('java.lang.String', 'javax.net.ssl.SSLSession').implementation = function(host, session) {
-	        console.log("[+] Bypassed HostnameVerifier for: " + host);
-	        return true;
-	    };
-	} catch(e) {}
+        // Hook HostnameVerifier
+        try {
+            var HostnameVerifier = Java.use('javax.net.ssl.HostnameVerifier');
+            // Hook the default implementation or common custom ones
+            var OkHostnameVerifier = Java.use('okhttp3.internal.tls.OkHostnameVerifier');
+            OkHostnameVerifier.verify.overload('java.lang.String', 'javax.net.ssl.SSLSession').implementation = function(host, session) {
+                console.log("[+] Bypassed HostnameVerifier for: " + host);
+                return true;
+            };
+        } catch(e) {}
     });
 }
 
