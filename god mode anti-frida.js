@@ -140,7 +140,7 @@ function bypassMemoryMapScanning() {
                 }
             },
             onLeave: function(retval) {
-                if (this.isMaps && !retval.isNull() && retval.toInt32() >=0) {
+                if (this.isMaps && !retval.isNull() && retval.toInt32() >= 0) {
                     trackedMapsFds[retval.toInt32()] = true;
                 }
             }
